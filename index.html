@@ -1,153 +1,59 @@
-<!doctype html>
 <html>
-<head>
-<script type="text/javascript" src="progress.js"></script>
-<link type="text/css" rel="stylesheet" href="progress.css" />
-<style type="text/css">
-    /* demo page definitions */
-    html, body {
-        font-family: Impact, Charcoal, sans-serif;
-        color: #555;
-        margin-left: 17px;
-    }
-    h2 {
-        margin-bottom: 4px;
-        font-size: 18px;
-    }
-    a {
-        color: #555;
-        font-weight: bold;
-    }
-    p {
-        font-size: 13px;
-        border: 1px dashed #555;
-        padding: 10px;
-        margin-bottom: 25px;
-    }
-    div#content {
-         width: 500px;
-    }
-    div.code {
-        margin-top: 5px;
-    }
-    div.code span {
-        font-family: Lucida Console, Monaco, monospace;
-        font-size: 11px;
-    }
-    /* base definitions, can be overridden via id */
-    .outerDiv {
+  <head>
+    <title>progress.js example</title>
+    <script src="progress.js"></script>
+    <style>
+    .outerDivProgressBar {
         width: 100%;
-        background-color: #dddddd;
+        background-color: #b8b8b8;
         border-radius: 5px;
         text-align: center;
+        min-height: 2px;
     }
-    .outerDiv span {
+
+    .outerDivProgressBar span {
         color: white;
         font-weight: bold;
         position: relative;
         height: 0;
         display: block;
     }
-    .innerDiv {
+
+    .innerDivProgressBar {
         width: 0;
         border-radius: 5px;
-        background-image: url("fastChecks/barAnimation/stripes.png");
+        background-color: #5790d5;
         width: 100%;
-        height: 20px;
+        height: 2px;
     }
-    /* override of base definitions for single progress bars */
-    #progress4 .innerDiv {
-        background-image: url("fastChecks/barAnimation/stripes2.gif");
-    }
-    #progress5 .innerDiv {
-        background-image: none;
-        background-color: green;
-    }
-    #progress6 {
-        background-color: #888;
-    }
-</style>
-<script type="text/javascript">
+      #progressNotification {
+        border: 1px solid #b8b8b8;
+        background: #f7f7f7;
+        width:100%;
+        min-height:20px;
+        text-align: center;
+      }
+      #progressNotification span {
+        color: #b8b8b8;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="progressBar"></div>
+    <div id="progressNotification"><span>Updating (0%)</span></div>
+    <script>
     window.setTimeout(function() {
-        var chargeBar = new Progress.bar({ id: "progress1", autoRemove: false, backgroundSpeed: 5, type: "charge" });
-        chargeBar.renderTo(document.getElementById('chargeBar'));
-
-        var chargeBar2 = new Progress.bar({ id: "progress2", autoRemove: false, backgroundSpeed: -5, type: "charge" });
-        chargeBar2.renderTo(document.getElementById('chargeBar2'));
-
-        var chargeBar3 = new Progress.bar({ id: "progress6", autoRemove: false, backgroundSpeed: 5, type: "charge", showPercentage: true });
-        chargeBar3.renderTo(document.getElementById('chargeBar3'));
-
-        var dischargeBar = new Progress.bar({ id: "progress3", autoRemove: false, backgroundSpeed: 5, type: "discharge" });
-        dischargeBar.renderTo(document.getElementById('dischargeBar'));
-
-        var dischargeBar2 = new Progress.bar({ id: "progress4", autoRemove: false, backgroundSpeed: -5, type: "discharge" });
-        dischargeBar2.renderTo(document.getElementById('dischargeBar2'));
-
-        var dischargeBar3 = new Progress.bar({ id: "progress5", autoRemove: false, backgroundSpeed: -5, type: "discharge" });
-        dischargeBar3.renderTo(document.getElementById('dischargeBar3'));
-
-        var percent = 0;
+        var progressBar = new Progress.bar({ id: "progress5", autoRemove: false, backgroundSpeed: -5, type: "charge",showPercentage: true });
+      progressBar.renderTo(document.getElementById('progressBar'));
+         var percent = 0;
         window.setInterval(function() {
             percent = percent + Math.floor(Math.random()*10);
             percent = percent >= 100 ? 0 : percent;
-            chargeBar.update(percent);
-        }, 500);
-        var percent2 = 0;
-        window.setInterval(function() {
-            percent2 = percent2 + Math.floor(Math.random()*10);
-            percent2 = percent2 >= 100 ? 0 : percent2;
-            chargeBar2.update(percent2);
-        }, 400);
-        var percent3 = 100;
-        window.setInterval(function() {
-            percent3 = percent3 - Math.floor(Math.random()*15);
-            percent3 = percent3 <= 0 ? 100 : percent3;
-            dischargeBar.update(percent3);
-        }, 500);
-        var percent4 = 100;
-        window.setInterval(function() {
-            percent4 = percent4 - Math.floor(Math.random()*20);
-            percent4 = percent4 <= 0 ? 100 : percent4;
-            dischargeBar2.update(percent4);
-        }, 700);
-        var percent5 = 100;
-        window.setInterval(function() {
-            percent5 = percent5 - Math.floor(Math.random()*10);
-            percent5 = percent5 <= 0 ? 100 : percent5;
-            dischargeBar3.update(percent5);
-        }, 700);
-        var percent6 = 0;
-        window.setInterval(function() {
-            percent6 = percent6 + Math.floor(Math.random()*10);
-            percent6 = percent6 >= 100 ? 0 : percent6;
-            chargeBar3.update(percent6);
-        }, 700);
-    }, 500)
-</script>
-</head>
-<body>
-    <div id="content">
-        <h1>progress.js</h1>
-        <p><strong>NOTE:</strong> In case you did not get here via github, the <a href="https://github.com/mdix/progress.js">Documentation</a> is over there.</p>
-            <h2>charge bar</h2>
-                <div id="chargeBar"></div>
-                <div class="code"><span>new Progress.bar({ id: "progress1", autoRemove: false, backgroundSpeed: 5, type: "charge" });</span></div>
-            <h2>charge bar 2</h2>
-                <div id="chargeBar2"></div>
-                <div class="code"><span>new Progress.bar({ id: "progress2", autoRemove: false, backgroundSpeed: -5, type: "charge" });</span></div>
-            <h2>charge bar 3 (percentage display)</h2>
-                <div id="chargeBar3"></div>
-                <div class="code"><span>new Progress.bar({ id: "progress6", autoRemove: false, backgroundSpeed: 5, type: "charge", showPercentage: true });</span></div>
-            <h2>discharge bar</h2>
-                <div id="dischargeBar"></div>
-                <div class="code"><span>new Progress.bar({ id: "progress3", autoRemove: false, backgroundSpeed: 5, type: "discharge" });</span></div>
-            <h2>discharge bar</h2>
-                <div id="dischargeBar2"></div>
-                <div class="code"><span>new Progress.bar({ id: "progress4", autoRemove: false, backgroundSpeed: -5, type: "discharge" });</span></div>
-            <h2>discharge bar (solid)</h2>
-                <div id="dischargeBar3"></div>
-                <div class="code"><span>new Progress.bar({ id: "progress5", autoRemove: false, backgroundSpeed: -5, type: "discharge" });</span></div>
-    </div>
-</body>
+            progressBar.update(percent);
+        }, 100);
+
+    }, 500);
+    </script>
+  </body>
 </html>

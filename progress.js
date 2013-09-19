@@ -10,43 +10,37 @@ Progress.bar = (function(config) {
     config.id   = config.id   ? config.id   : 'progress' + Math.floor(Math.random()*9999);
 
     var outerDiv       = createOuterDiv();
-    var percentageSpan = createPercentageSpan();
     var innerDiv       = createInnerDiv();
+    var percentageDiv  = createPercentageDiv();
     var intervals      = [];
 
     function createOuterDiv() {
         var outerDiv = document.createElement('div');
-            outerDiv.setAttribute('class', 'outerDiv');
+            outerDiv.setAttribute('class', 'outerDivProgressBar');
             outerDiv.setAttribute('id', config.id);
         return outerDiv;
     }
 
-    function createPercentageSpan() {
-        var percentageSpan = document.createElement('span');
-            percentageSpan.innerHTML = config.type === 'charge' ? '0%' : '100%';
-        return percentageSpan;
-    }
-
     function createInnerDiv() {
         var innerDiv = document.createElement('div');
-            innerDiv.setAttribute('class', 'innerDiv');
+            innerDiv.setAttribute('class', 'innerDivProgressBar');
             innerDiv.style.width = config.type === 'charge' ? '0' : '100%';
         return innerDiv;
+    }
+
+    function createPercentageDiv(){
+        var outerDiv = document.getElementById('progressNotification');
+        return outerDiv;
     }
 
     function update(percent) {
         percent = percent > 100 ? 100 : percent < 0 ? 0 : percent;
         innerDiv.style.width = percent + '%';
-        if (config.showPercentage) {
-            percentageSpan.innerHTML = percent + '%';
-        }
+        percentageDiv.innerHTML = "<span>Updating ( "+percent+"% )</span>";
         checkForAutoRemoval(percent);
     }
 
     function renderTo(element) {
-        if (config.showPercentage) {
-            outerDiv.appendChild(percentageSpan);
-        }
         outerDiv.appendChild(innerDiv);
         element.appendChild(outerDiv);
         animateBackground();
