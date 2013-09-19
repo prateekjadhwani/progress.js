@@ -35,7 +35,4 @@ The following configuration options are available:
 Just build a config object in which the configuration options reside (any order): `{id: 'yourId', autoRemove: true, type: 'discharge', showPercentage: true}` and use it to replace 'configObj' in the instructions (see line 3 above).
 
 ## Demo
-A demo can be found here: [http://github.dixpix.de/progress.js/](http://github.dixpix.de/progress.js/).
-
-## Tests
-progress.js is tested with [Jasmine BDD testing framework](https://github.com/pivotal/jasmine) which is not included. You can download Jasmine [here](http://pivotal.github.com/jasmine/download.html) and place the contents in test/lib/. To run the tests, open test/specRunner.html in your browser.s
+Just click on the [index.html] file
